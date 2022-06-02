@@ -42,7 +42,7 @@ const ButtonGroup = ({ setActive, router }) => {
   const hasConnected = true;
 
   return hasConnected ? (
-    <Button btnName="Create" clasStyles="mx-2 rounded-xl" handleClick={() => { setActive(''); router.push('/create-nft'); }} />
+    <Button btnName="Create" clasStyles="mx-2 rounded-xl" handleClick={() => { setActive(' '); router.push('/create-nft'); }} />
   ) : <Button btnName="Connect" clasStyles="mx-2 rounded-xl" handleClick={() => {}} />;
 };
 
