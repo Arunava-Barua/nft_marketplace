@@ -6,12 +6,24 @@ import { Banner, CreatorCard, NFTCard } from '../components';
 import { makeId } from '../utils/makeId';
 
 import images from '../assets';
+import { NFTContext } from '../context/NFTContext';
 
 const Home = () => {
   const scrollRef = useRef(null);
   const parentRef = useRef(null);
+  const [nfts, setNfts] = useState([]);
   const [hideButtons, setHideButtons] = useState(false);
   const { theme } = useTheme();
+  const { fetchNFTs } = useContext(NFTContext);
+
+  useEffect(() => {
+    fetchNFTs()
+      .then((items) => {
+        setNfts(items);
+
+        // console.log(items);
+      });
+  }, []);
 
   // Scroll
   const handleScroll = (direction) => {
@@ -92,7 +104,8 @@ const Home = () => {
             </div>
           </div>
           <div className="flex-1 mt-3 w-full flex flex-wrap justify-start md:justify-center">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, i) => (
+            {nfts.map((nft) => <NFTCard key={nft.tokenId} nft={nft} />)}
+            {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, i) => (
               <NFTCard
                 key={`nft-${i}`}
                 nft={{
@@ -104,7 +117,7 @@ const Home = () => {
                   description: 'Cool NFT for sale',
                 }}
               />
-            ))}
+              ))} */}
           </div>
 
         </div>

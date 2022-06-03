@@ -8,6 +8,7 @@ import { useTheme } from 'next-themes';
 
 import { Button, Input } from '../components';
 import images from '../assets';
+import { NFTContext } from '../context/NFTContext';
 
 // const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
 
@@ -15,9 +16,19 @@ const CreateNft = () => {
   const [formInput, setFormInput] = useState({ price: '', name: '', description: '' });
   const [fileUrl, setFileUrl] = useState(null);
   const { theme } = useTheme();
+  const router = useRouter();
 
-  const onDrop = useCallback(() => {
+  const { uploadToIPFS, createNFT } = useContext(NFTContext);
+
+  // upload the image to the ipfs server
+  const onDrop = useCallback(async (acceptedFile) => {
     // upload image to ipfs or blockchain
+    const url = await uploadToIPFS(acceptedFile[0]);
+
+    // console.log({ url });
+
+    // updating state variable
+    setFileUrl(url);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
@@ -36,7 +47,7 @@ const CreateNft = () => {
     [isDragActive, isDragReject, isDragAccept],
   );
 
-  console.log(formInput);
+  // console.log(formInput);
 
   return (
     <div className="flex justify-center sm:px-4 p-12">
@@ -106,6 +117,7 @@ const CreateNft = () => {
             btnName="Create Item"
             btnType="primary"
             classStyles="rounded-xl"
+            handleClick={() => createNFT(formInput, fileUrl, router)}
           />
         </div>
       </div>
