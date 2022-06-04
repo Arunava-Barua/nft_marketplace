@@ -11,13 +11,13 @@ import { NFTContext } from '../context/NFTContext';
 import images from '../assets';
 
 const MenuItems = ({ isMobile, active, setActive }) => {
-  const generateLink = (i) => {
-    switch (i) {
-      case 0:
+  const generateLink = (menuItem) => {
+    switch (menuItem) {
+      case 'Explore NFTs':
         return '/';
-      case 1:
-        return '/created-nfts';
-      case 2:
+      case 'Listed NFTs':
+        return '/listed-nfts';
+      case 'My NFTs':
         return '/my-nfts';
 
       default:
@@ -25,15 +25,19 @@ const MenuItems = ({ isMobile, active, setActive }) => {
     }
   };
 
+  const menuItems = ['Explore NFTs', 'Listed NFTs', 'My NFTs'];
+
   // Functionality to generate dynamic links for menu items
   return (
     <ul className={`list-none flexCenter flex-row ${isMobile && 'flex-col h-full'}`}>
 
-      {['Explore NFTs', 'Listed NFTs', 'My NFTs'].map((item, i) => (
-        <li key={i} onClick={() => setActive(item)} className={`flex flex-row items-center font-poppins font-semibold text-base dark:hover:text-white  hover:text-nft-dark mx-3 ${isMobile ? 'p-5' : ''} ${active === item ? 'dark:text-white text-nft-black-1' : 'dark:text-nft-gray-3 text-nft-black-2'}`}>
-          <Link href={generateLink(i)}>{item}</Link>
-        </li>
-      ))}
+      {
+        menuItems.map((item, i) => (
+          <li key={i} onClick={() => setActive(item)} className={`flex flex-row items-center font-poppins font-semibold text-base dark:hover:text-white  hover:text-nft-dark mx-3 ${isMobile ? 'p-5' : ''} ${active === item ? 'dark:text-white text-nft-black-1' : 'dark:text-nft-gray-3 text-nft-black-2'}`}>
+            <Link href={generateLink(menuItems[i])}>{item}</Link>
+          </li>
+        ))
+}
 
     </ul>
   );
