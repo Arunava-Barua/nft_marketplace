@@ -80,6 +80,7 @@ const NFTDetails = () => {
             <div className="relative w-12 h-12 minlg:w-20 minlg:h-20 mr-2">
               <Image src={images.creator1} objectFit="cover" className="rounded-full" />
             </div>
+            {/* --------------------------------------------------------------------------------------------------here------------------------*/ }
             <p className="font-poppins dark:text-white text-nft-black-1 text-sm minlg:text-lg font-semibold">{shortenAddress(nft.seller)}</p>
           </div>
         </div>
@@ -106,10 +107,10 @@ const NFTDetails = () => {
             )
             : currentAccount === nft.owner.toLowerCase()
               ? (
-                <Button 
+                <Button
                   btnName="List on Marketplace"
                   classStyles="mr-5 sm:mr-0 sm:mb-5 rounded-xl"
-                  handleClick={()=> router.push(`/resell-nft?tokenId=${nft.token}&tokenURI=${nft.tokenURI}`)}
+                  handleClick={() => router.push(`/resell-nft?tokenId=${nft.tokenId}&tokenURI=${nft.tokenURI}`)}
                 />
               )
               : (

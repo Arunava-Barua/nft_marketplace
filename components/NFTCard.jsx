@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { NFTContext } from '../context/NFTContext';
 
-import { shortenAddress} from '../utils/shortenAddress';
+import { shortenAddress } from '../utils/shortenAddress';
 
 import images from '../assets';
 
