@@ -6,7 +6,7 @@ import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
-import { Button, Input } from '../components';
+import { Button, Input, Loader } from '../components';
 import images from '../assets';
 import { NFTContext } from '../context/NFTContext';
 
@@ -18,7 +18,7 @@ const CreateNft = () => {
   const { theme } = useTheme();
   const router = useRouter();
 
-  const { uploadToIPFS, createNFT } = useContext(NFTContext);
+  const { uploadToIPFS, createNFT, isLoadingNFT } = useContext(NFTContext);
 
   // upload the image to the ipfs server
   const onDrop = useCallback(async (acceptedFile) => {
@@ -46,6 +46,14 @@ const CreateNft = () => {
        ${isDragReject ? ' border-file-reject ' : ''}`),
     [isDragActive, isDragReject, isDragAccept],
   );
+
+  if (isLoadingNFT) {
+    return (
+      <div className="flexStart min-h-screen">
+        <Loader />
+      </div>
+    );
+  }
 
   // console.log(formInput);
 
